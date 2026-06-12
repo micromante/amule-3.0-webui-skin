@@ -1,0 +1,634 @@
+/* aMule WebUI - Custom styles */
+
+body {
+    font-size: 14px;
+    font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+}
+
+/* =========================================================================
+   BOOTSTRAP 5 THEME (teal / dark)
+   Pages migrated to Bootstrap 5 carry <body class="amule-bs5">.  These rules
+   only target that scope, so Bootstrap-3 pages (still using .panel/.label and
+   the BS3 CDN during the migration) are unaffected by anything here.
+   ========================================================================= */
+body.amule-bs5 {
+    background-color: #39425f;
+    padding-top: 64px;            /* height of the fixed navbar */
+    color: #cfd8dc;
+}
+
+/* --- Navbar --- */
+.amule-bs5 .amule-navbar {
+    background-color: #212529;
+    border-bottom: 2px solid #319a9b;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+}
+.amule-bs5 .navbar-brand {
+    color: #4db6ac;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.amule-bs5 .navbar-brand small { color: #90a4ae; font-weight: normal; }
+.amule-bs5 .logo-nav { height: 34px; width: 34px; border-radius: 8px; }
+.amule-bs5 .navbar-nav .nav-link {
+    color: #b0bec5;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    border-radius: 6px;
+    padding: 6px 12px;
+    transition: background .15s, color .15s;
+}
+.amule-bs5 .navbar-nav .nav-link i { color: #4db6ac; font-size: 16px; }
+.amule-bs5 .navbar-nav .nav-link:hover,
+.amule-bs5 .navbar-nav .nav-link:focus,
+.amule-bs5 .navbar-nav .nav-link.active {
+    color: #fff;
+    background-color: rgba(49,154,155,0.18);
+}
+.amule-bs5 .navbar-nav .nav-link:hover i,
+.amule-bs5 .navbar-nav .nav-link.active i { color: #fff; }
+.amule-bs5 .navbar-toggler { border-color: rgba(49,154,155,0.5); }
+
+/* --- Cards --- */
+.amule-bs5 .card {
+    background-color: #2a2f42;
+    border: 1px solid rgba(49,154,155,0.2);
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+    margin-bottom: 16px;
+}
+.amule-bs5 .card-header {
+    background-color: #319a9b;
+    color: #fff;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    font-size: 14px;
+    border-bottom: 0;
+    border-radius: 8px 8px 0 0;
+}
+
+/* --- Tables --- */
+.amule-bs5 .table {
+    --bs-table-bg: transparent;
+    --bs-table-color: #cfd8dc;
+    color: #cfd8dc;
+    margin-bottom: 0;
+    /* Fit the viewport: columns share the available width and cells wrap,
+       so there is never a horizontal scrollbar. */
+    table-layout: fixed;
+    width: 100%;
+    display: table;
+    overflow-x: visible;
+}
+.amule-bs5 .table td,
+.amule-bs5 .table th {
+    white-space: normal;
+    word-break: break-word;   /* wrap at spaces; break only over-long words */
+}
+/* On phones let the header labels wrap instead of overlapping when columns
+   get narrow. */
+@media (max-width: 767px) {
+    .amule-bs5 .table > thead > tr > th { white-space: normal; }
+
+    /* Compact navbar: show only "aMule" (hide "WebUI" and the "powered by..."
+       subtitle) so the brand + hamburger fit on the first line and the menu
+       still drops below normally when opened. */
+    .amule-bs5 .navbar-brand .amule-brand-rest,
+    .amule-bs5 .navbar-brand small { display: none; }
+    .amule-bs5 .navbar-brand { font-size: 17px; gap: 6px; }
+    .amule-bs5 .logo-nav { height: 30px; width: 30px; }
+
+    /* Action toolbar (Transfer/Shared): each button group spans the full width
+       and its buttons share the line with the icon above the label, like the
+       Log bar — so e.g. Lower/Remove/Higher show 3 per line. */
+    .amule-bs5 .amule-toolbar { gap: 6px !important; }
+    .amule-bs5 .amule-toolbar .btn-group { display: flex; width: 100%; }
+    .amule-bs5 .amule-toolbar .btn-group > .btn { flex: 1 1 0; min-width: 0; }
+    .amule-bs5 .amule-toolbar .btn {
+        --bs-btn-padding-y: 0.3rem;
+        --bs-btn-padding-x: 0.35rem;
+        --bs-btn-font-size: 0.72rem;
+        line-height: 1.15;
+    }
+    .amule-bs5 .amule-toolbar .btn i { display: block; margin: 0 auto 2px; font-size: 1rem; }
+    /* Filter row (selects + Filter button) takes the full width too. */
+    .amule-bs5 .amule-toolbar .input-group { width: 100% !important; }
+
+    /* Log page: fit the 3 buttons on one line (text wraps inside each). */
+    .amule-bs5 .amule-logbar { flex-wrap: nowrap !important; }
+    .amule-bs5 .amule-logbar .btn {
+        flex: 1 1 0;
+        min-width: 0;
+        --bs-btn-padding-x: 0.4rem;
+        --bs-btn-font-size: 0.72rem;
+        line-height: 1.15;
+    }
+    .amule-bs5 .amule-logbar .btn i { display: block; margin: 0 auto 2px; font-size: 1rem; }
+}
+
+/* --- Card layout for wide tables on phones (<= 767px) ---
+   Tables with class "amule-cards" turn each row into a stacked card so nothing
+   is squeezed: the file name spans the full width and the other fields sit on
+   their own lines, labelled via data-label. */
+@media (max-width: 767px) {
+    .amule-bs5 table.amule-cards { display: block; }
+    .amule-bs5 table.amule-cards thead { display: none; }
+    .amule-bs5 table.amule-cards tbody { display: block; }
+    .amule-bs5 table.amule-cards tr {
+        display: block;
+        border: 1px solid rgba(49,154,155,0.25);
+        border-radius: 8px;
+        margin: 0 8px 10px 8px;
+        padding: 8px 10px;
+        background: rgba(255,255,255,0.02);
+    }
+    .amule-bs5 table.amule-cards td {
+        display: block;
+        width: auto !important;
+        border: 0 !important;
+        padding: 3px 0 !important;
+        text-align: left !important;
+        white-space: normal;
+        word-break: break-word;
+    }
+    /* file name (the cell containing a <label>) = card title */
+    .amule-bs5 table.amule-cards td:has(label) { font-size: 13px; padding-bottom: 6px !important; }
+    .amule-bs5 table.amule-cards td:has(label) label { font-weight: 600; }
+    /* labelled fields: "Label  value" on one line */
+    .amule-bs5 table.amule-cards td[data-label] { display: flex; gap: 8px; align-items: center; }
+    .amule-bs5 table.amule-cards td[data-label]::before {
+        content: attr(data-label);
+        color: #4db6ac;
+        font-weight: 600;
+        font-size: 11px;
+        text-transform: uppercase;
+        min-width: 78px;
+        flex: 0 0 78px;
+    }
+    /* progress bar takes the remaining width */
+    .amule-bs5 table.amule-cards td[data-label="Progress"] { flex-wrap: wrap; }
+    .amule-bs5 table.amule-cards td[data-label="Progress"] .progress { flex: 1 1 auto; }
+    .amule-bs5 table.amule-cards .amule-pct { margin-left: 0; }
+    /* checkbox cell */
+    .amule-bs5 table.amule-cards td:has(input[type="checkbox"]) { padding-bottom: 4px !important; }
+}
+.amule-bs5 .table > thead > tr > th {
+    color: #4db6ac;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border-bottom: 2px solid rgba(49,154,155,0.4);
+    white-space: nowrap;
+}
+.amule-bs5 .table > tbody > tr > td {
+    vertical-align: middle;
+    border-top: 1px solid rgba(255,255,255,0.05);
+}
+.amule-bs5 .table > tbody > tr:hover > td { background-color: rgba(49,154,155,0.10); }
+.amule-bs5 .table a { color: #4db6ac; text-decoration: none; cursor: pointer; }
+.amule-bs5 .table a:hover { color: #80cbc4; }
+
+/* --- Buttons ---
+   Use Bootstrap's default button colours; only normalise padding/size so every
+   button has the exact same height whether it stands alone, sits in a btn-group
+   or inside an input-group. */
+.amule-bs5 .btn {
+    --bs-btn-padding-y: 0.45rem;
+    --bs-btn-padding-x: 0.85rem;
+    --bs-btn-font-size: 0.95rem;
+    --bs-btn-line-height: 1.5;
+    --bs-btn-color: #fff;
+    --bs-btn-hover-color: #fff;
+    --bs-btn-active-color: #fff;
+    --bs-btn-disabled-color: #fff;
+}
+
+/* --- Forms (dark) --- */
+.amule-bs5 .form-control,
+.amule-bs5 .form-select {
+    background-color: #212529;
+    border: 1px solid rgba(49,154,155,0.35);
+    color: #cfd8dc;
+}
+.amule-bs5 .form-control:focus,
+.amule-bs5 .form-select:focus {
+    background-color: #212529;
+    border-color: #319a9b;
+    color: #cfd8dc;
+    box-shadow: 0 0 0 0.2rem rgba(49,154,155,0.25);
+}
+.amule-bs5 .form-control::placeholder { color: #78909c; }
+.amule-bs5 .input-group-text {
+    background-color: #212529;
+    border: 1px solid rgba(49,154,155,0.35);
+    color: #90a4ae;
+}
+
+/* --- Badges --- */
+.amule-bs5 .badge.bg-amule { background-color: #319a9b !important; color: #fff; }
+
+/* --- Footer / connection status --- */
+.amule-bs5 .amule-footer {
+    background-color: #212529;
+    border-top: 1px solid rgba(49,154,155,0.3);
+    border-radius: 8px;
+    padding: 12px 16px;
+    margin-bottom: 24px;
+}
+
+/* --- Search status spinner reused from BS3 section (.amule-spinner) --- */
+
+/* --- Sort arrows --- */
+.amule-bs5 .sort-arrow { font-size: 11px; color: #4db6ac; }
+
+/* --- Mobile tweaks for the search page (phones, <= 575px) --- */
+@media (max-width: 575px) {
+    /* Search bar: one control per line, full width. */
+    .amule-bs5 .amule-search-bar { flex-wrap: wrap; }
+    .amule-bs5 .amule-search-bar > * {
+        flex: 1 1 100% !important;
+        max-width: 100% !important;
+        min-width: 0;
+        border-radius: 6px !important;
+        margin-bottom: 6px;
+    }
+    /* The small refresh button is redundant on mobile (results auto-refresh). */
+    .amule-bs5 .amule-search-bar > .btn[title="Refresh to see the results"] { display: none; }
+
+    /* Slightly smaller controls in the search card so more fits and it's tidy. */
+    .amule-bs5 .card .input-group-text,
+    .amule-bs5 .card .form-control,
+    .amule-bs5 .card .form-select { font-size: 0.85rem; }
+
+    /* Size filters: keep "label + value + unit" on one usable line. */
+    .amule-bs5 .input-group .input-group-text { white-space: nowrap; }
+
+    /* Results filter box: full width under the header title. */
+    .amule-bs5 #resultFilter { max-width: 100% !important; width: 100%; }
+
+    /* A bit more room for the file-name column. */
+    .amule-bs5 #searchResultsTable td label { font-size: 12px !important; }
+}
+
+/* --- Search results already in your downloads ("present") --- */
+.amule-bs5 #searchResultsTable tr.amule-have-row > td {
+    background-color: rgba(102,187,106,0.12);
+}
+.amule-bs5 #searchResultsTable tr.amule-have-row:hover > td {
+    background-color: rgba(102,187,106,0.18);
+}
+.amule-bs5 .amule-have-badge { font-weight: 600; }
+
+
+/* Navbar */
+.navbar {
+    min-height: 56px;
+    background-color: #212529 !important;
+    border-bottom: 2px solid #319a9b;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+}
+
+.navbar-brand {
+    font-size: 18px;
+    font-weight: 600;
+    color: #4db6ac !important;
+    padding-top: 8px !important;
+    letter-spacing: 0.5px;
+}
+
+.btn.navbar-link {
+    font-size: 11px;
+    padding: 6px 10px;
+    color: #b0bec5 !important;
+    transition: color 0.2s, background 0.2s;
+}
+
+.btn.navbar-link:hover {
+    color: #ffffff !important;
+    background-color: rgba(49,154,155,0.2);
+    border-radius: 4px;
+}
+
+.btn.navbar-link .glyphicon {
+    font-size: 16px;
+    color: #4db6ac;
+}
+
+.btn.navbar-link div {
+    font-size: 10px;
+    margin-top: 2px;
+    color: #90a4ae;
+}
+
+/* Panels */
+.panel {
+    border-radius: 6px !important;
+    border: 1px solid rgba(49,154,155,0.2) !important;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+    margin-bottom: 16px !important;
+}
+
+.panel-heading {
+    border-radius: 5px 5px 0 0 !important;
+    padding: 10px 16px !important;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+.panel-heading h4 {
+    font-size: 13px !important;
+    margin: 0 !important;
+    letter-spacing: 1px;
+}
+
+/* Tables */
+.table {
+    font-size: 13px;
+    margin-bottom: 0;
+}
+
+.table > thead > tr > th {
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 10px 12px !important;
+    border-bottom: 2px solid rgba(49,154,155,0.4) !important;
+    color: #4db6ac !important;
+}
+
+.table > tbody > tr > td {
+    padding: 9px 12px !important;
+    vertical-align: middle !important;
+    font-size: 13px;
+    border-top: 1px solid rgba(255,255,255,0.05) !important;
+    color: #cfd8dc !important;
+}
+
+.table > tbody > tr:hover > td {
+    background-color: rgba(49,154,155,0.1) !important;
+    transition: background 0.15s;
+}
+
+/* Badges */
+.badge {
+    font-size: 11px !important;
+    padding: 4px 8px !important;
+    border-radius: 10px !important;
+    font-weight: 600;
+}
+
+/* Buttons (legacy BS3 pages only — BS5 pages use default Bootstrap colours) */
+body:not(.amule-bs5) .btn {
+    font-size: 13px;
+    border-radius: 4px !important;
+    transition: all 0.2s;
+}
+
+body:not(.amule-bs5) .btn-info {
+    background-color: #319a9b !important;
+    border-color: #2a8485 !important;
+}
+
+body:not(.amule-bs5) .btn-info:hover {
+    background-color: #2a8485 !important;
+    border-color: #237070 !important;
+}
+
+body:not(.amule-bs5) .btn-success {
+    background-color: #388e3c !important;
+    border-color: #2e7d32 !important;
+}
+
+body:not(.amule-bs5) .btn-success:hover {
+    background-color: #2e7d32 !important;
+}
+
+/* Form controls (legacy BS3 pages only) */
+body:not(.amule-bs5) .form-control {
+    font-size: 13px !important;
+    height: 34px !important;
+    background-color: #2a2f42 !important;
+    border: 1px solid rgba(49,154,155,0.3) !important;
+    color: #cfd8dc !important;
+    border-radius: 4px !important;
+}
+
+.form-control:focus {
+    border-color: #319a9b !important;
+    box-shadow: 0 0 0 2px rgba(49,154,155,0.2) !important;
+}
+
+/* Labels */
+label.form-control {
+    background-color: #212529 !important;
+    color: #90a4ae !important;
+    font-size: 12px !important;
+    line-height: 22px;
+}
+
+/* Footer */
+#footer {
+    background-color: #212529 !important;
+    border-top: 1px solid rgba(49,154,155,0.3);
+    padding: 8px 0;
+    font-size: 13px;
+}
+
+#footer .label {
+    font-size: 12px;
+    padding: 4px 8px;
+}
+
+/* Progress bars */
+.progress {
+    height: 8px !important;
+    border-radius: 4px !important;
+    background-color: rgba(255,255,255,0.1) !important;
+    margin-bottom: 0 !important;
+}
+
+.progress-bar {
+    border-radius: 4px !important;
+    background-color: #319a9b !important;
+}
+
+/* Checkboxes */
+input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+}
+
+/* Links (legacy BS3 pages only — must not recolour BS5 <a class="btn">) */
+body:not(.amule-bs5) a {
+    color: #4db6ac !important;
+    transition: color 0.15s;
+}
+
+body:not(.amule-bs5) a:hover {
+    color: #80cbc4 !important;
+    text-decoration: none !important;
+}
+
+/* BS5: button text is always white, even for <a class="btn"> */
+.amule-bs5 a.btn,
+.amule-bs5 a.btn:hover,
+.amule-bs5 a.btn:focus,
+.amule-bs5 .btn {
+    color: #fff !important;
+}
+
+/* Glyphicons */
+.glyphicon {
+    color: #4db6ac !important;
+}
+
+.btn:hover .glyphicon {
+    color: #fff !important;
+}
+
+/* Select */
+select.form-control option {
+    background-color: #2a2f42;
+    color: #cfd8dc;
+}
+
+/* Scroll to top */
+#scroll {
+    background-color: #319a9b !important;
+}
+
+#scroll:hover {
+    background-color: #2a8485 !important;
+}
+
+/* Panel body padding */
+.panel-body {
+    padding: 14px 16px !important;
+}
+
+/* Stats page specific */
+td.texte {
+    font-size: 13px !important;
+}
+
+/* Keep labels/icons readable (white) over colored action buttons.
+   Legacy BS3 pages only — BS5 uses Bootstrap's own contrast colours. */
+body:not(.amule-bs5) .btn-success, body:not(.amule-bs5) .btn-success:hover, body:not(.amule-bs5) .btn-success:focus,
+body:not(.amule-bs5) .btn-info, body:not(.amule-bs5) .btn-info:hover, body:not(.amule-bs5) .btn-info:focus {
+    color: #fff !important;
+}
+
+/* Loading spinner for the "Searching..." state */
+.amule-spinner {
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    border: 3px solid rgba(77,182,172,0.25);
+    border-top-color: #4db6ac;
+    border-radius: 50%;
+    animation: amuleSpin 0.8s linear infinite;
+    vertical-align: middle;
+}
+@keyframes amuleSpin {
+    to { transform: rotate(360deg); }
+}
+
+/* =========================================================================
+   Responsive / mobile (phones and small tablets, <= 767px)
+   The template ships Bootstrap 3 but uses a non-standard navbar (a button
+   group inside .navbar-collapse with no hamburger toggle), which Bootstrap
+   hides on small screens. These rules make the whole UI usable on a phone:
+   - show and wrap the nav buttons instead of hiding them,
+   - let the navbar scroll with the page (no fixed-height juggling),
+   - make wide tables scroll horizontally instead of overflowing,
+   - stack form controls and the search filter full width,
+   - keep footers out of the way.
+   ========================================================================= */
+/* IMPORTANT: every rule here is scoped to body:not(.amule-bs5) so it only
+   affects legacy Bootstrap-3 pages. Bootstrap-5 pages handle their own
+   responsive behaviour (real hamburger menu, fitted tables) and must NOT be
+   touched by these overrides — otherwise the BS5 menu would be forced open. */
+@media (max-width: 767px) {
+
+    /* Navbar: static so its (taller, wrapped) content doesn't need a fixed
+       body offset, and force the collapsed menu to show. */
+    body:not(.amule-bs5) .navbar-fixed-top { position: static !important; }
+    body:not(.amule-bs5) { padding-top: 0 !important; }
+
+    body:not(.amule-bs5) .navbar .container { width: 100%; padding: 0 8px; }
+    body:not(.amule-bs5) .navbar-brand { font-size: 16px; padding-top: 8px !important; }
+    body:not(.amule-bs5) .navbar-brand small { display: none; }
+
+    body:not(.amule-bs5) .navbar .navbar-form {
+        float: none !important;
+        margin: 4px 0 6px 0 !important;
+        padding: 0 !important;
+        border: 0 !important;
+        box-shadow: none !important;
+    }
+    body:not(.amule-bs5) .navbar-collapse.collapse {
+        display: block !important;
+        height: auto !important;
+        padding: 0 !important;
+        overflow: visible !important;
+    }
+    body:not(.amule-bs5) .navbar .btn-group {
+        display: flex !important;
+        flex-wrap: wrap;
+        float: none !important;
+        width: 100%;
+    }
+    body:not(.amule-bs5) .navbar .btn-group > .btn.navbar-link {
+        flex: 1 1 22%;
+        min-width: 70px;
+        margin: 2px 0;
+        padding: 6px 4px;
+    }
+
+    /* Wide tables scroll sideways instead of breaking the layout. */
+    body:not(.amule-bs5) .table {
+        display: block;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        white-space: nowrap;
+        min-width: 100%;
+    }
+
+    /* Footers: static so they don't cover the content on a small screen. */
+    body:not(.amule-bs5) #footer {
+        position: static !important;
+        width: 100% !important;
+        margin-top: 16px;
+    }
+
+    /* Search page: filter box and form controls go full width and stack. */
+    body:not(.amule-bs5) .panel-heading {
+        flex-direction: column !important;
+        align-items: stretch !important;
+    }
+    body:not(.amule-bs5) #resultFilter {
+        position: static !important;
+        width: 100% !important;
+        margin-top: 8px;
+    }
+    body:not(.amule-bs5) #resultFilterCount {
+        position: static !important;
+        display: block;
+        margin-top: 4px;
+        text-align: center;
+    }
+    body:not(.amule-bs5) .form-inline .form-control {
+        width: 100%;
+        margin-bottom: 6px;
+    }
+    body:not(.amule-bs5) .form-inline input[type="text"] { width: 100% !important; }
+}
